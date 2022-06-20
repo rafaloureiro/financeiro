@@ -7,7 +7,52 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.8
+  stackName: ${self:app}-${self:service}-${opt:stage, 'dev'}-stack
 
 functions:
   hello:
     handler: handler.hello
+    timeout: 60
+    memorySize: 3000
+    events: 
+	
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
+ 
+  website-to-csv:
+    handler: website_to_csv.handler
+    timeout: 60
+    memorySize: 3000
+    events: 
+	
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
+
+  website-to-csv:
+    handler: website_to_csv.handler
+    timeout: 60
+    memorySize: 3000
+    events: 
+	
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
+
+
+	
+package:
+  # Directories and files to include in the deployed package
+  patterns:
+    - '!env'
+    - '!node_modules'
+    
+
+plugins:
+  - serverless-python-requirements
+
+	
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    layer: true
+
+

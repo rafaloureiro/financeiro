@@ -1,10 +1,11 @@
 import json
 
+import pandas
+
 
 def hello(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully!",
-        "input": event,
-    }
+    table = pandas.DataFrame({'column': [1, 2, 3, 4, 5]})
+    print(table) 
 
-    return {"statusCode": 200, "body": json.dumps(body)}
+if __name__ == "__main__": 
+    hello(None, None)
